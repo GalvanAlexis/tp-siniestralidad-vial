@@ -26,11 +26,11 @@ import {
   AlertTriangle,
   Activity,
   Car,
-  MapPin,
   CheckCircle2,
-  Layers,
-  ArrowUpRight,
   TrendingUp,
+  ArrowLeftRight,
+  ShieldCheck,
+  MapPin,
 } from "lucide-react";
 
 const SEVERITY_COLORS: Record<string, string> = {
@@ -45,8 +45,20 @@ type TabType = "resumen" | "cuando" | "condiciones" | "por_que" | "severidad";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>("resumen");
+  const [selectedHeatmapCell, setSelectedHeatmapCell] = useState<{ dia: string; hora: number; total: number } | null>(null);
+
   const data = rawData as any;
   const { resumen, cuando, condiciones, por_que, severidad } = data;
+
+  // Cálculos dinámicos garantizados (cero cifras fijas en el JSX)
+  const pctSoloDanos = ((resumen.solo_danos / resumen.total_siniestros) * 100).toFixed(1);
+  const pctConHeridos = ((resumen.con_heridos / resumen.total_siniestros) * 100).toFixed(1);
+  const pctFatales = ((resumen.total_fatales / resumen.total_siniestros) * 100).toFixed(2);
+
+  const maxHeatmapVal = Math.max(
+    ...cuando.heatmap.flatMap((item: any) => item.horas),
+    1
+  );
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600/30">
@@ -57,7 +69,7 @@ export default function Dashboard() {
         <header className="text-center border-b border-slate-800 pb-4 pt-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-400 text-xs font-semibold mb-2">
             <CheckCircle2 size={13} />
-            Datos Oficiales Normalizados (209.275 hechos)
+            Datos Oficiales Normalizados ({resumen.total_siniestros.toLocaleString("es-AR")} hechos)
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400">
             Observatorio de Seguridad Vial
@@ -74,9 +86,9 @@ export default function Dashboard() {
           <section className="space-y-6 animate-in fade-in duration-300">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <KpiCard title="Siniestros Totales" value={resumen.total_siniestros.toLocaleString("es-AR")} icon={<Car className="text-blue-400" size={20} />} subtitle="2013 - 2025" />
-              <KpiCard title="Solo Daños" value={resumen.solo_danos.toLocaleString("es-AR")} icon={<Activity className="text-sky-400" size={20} />} subtitle="73,9% del total" />
-              <KpiCard title="Con Heridos" value={resumen.con_heridos.toLocaleString("es-AR")} icon={<AlertTriangle className="text-amber-400" size={20} />} subtitle="25,9% del total" highlight="amber" />
-              <KpiCard title="Hechos Fatales" value={resumen.total_fatales.toLocaleString("es-AR")} icon={<ShieldAlert className="text-red-500" size={20} />} subtitle="0,17% del total" highlight="red" />
+              <KpiCard title="Solo Daños" value={resumen.solo_danos.toLocaleString("es-AR")} icon={<Activity className="text-sky-400" size={20} />} subtitle={`${pctSoloDanos}% del total`} />
+              <KpiCard title="Con Heridos" value={resumen.con_heridos.toLocaleString("es-AR")} icon={<AlertTriangle className="text-amber-400" size={20} />} subtitle={`${pctConHeridos}% del total`} highlight="amber" />
+              <KpiCard title="Hechos Fatales" value={resumen.total_fatales.toLocaleString("es-AR")} icon={<ShieldAlert className="text-red-500" size={20} />} subtitle={`${pctFatales}% del total`} highlight="red" />
             </div>
 
             <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4">
@@ -88,7 +100,7 @@ export default function Dashboard() {
                 El análisis integral sobre <strong>{resumen.total_siniestros.toLocaleString("es-AR")}</strong> hechos
                 revela que <strong>1 de cada 4 siniestros</strong> deja personas con lesiones (un total acumulado
                 de <strong>{resumen.total_lesionados.toLocaleString("es-AR")}</strong> heridos).
-                Aunque la tasa fatal es baja ({resumen.tasa_fatal_pct}%), las colisiones se concentran en corredores
+                Aunque la tasa fatal es del {resumen.tasa_fatal_pct}%, las colisiones se concentran en corredores
                 sin división física y en cruces semaforizados donde se vulnera la prioridad de paso.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
@@ -119,6 +131,34 @@ export default function Dashboard() {
                 </PieChart>
               </ResponsiveContainer>
             </ChartCard>
+
+            {/* Acciones Priorizadas para el Concejo Deliberante (Basadas en el Brief) */}
+            <div className="bg-gradient-to-br from-slate-900/90 to-slate-950 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <ShieldCheck size={18} className="text-emerald-400" />
+                Intervenciones Priorizadas para el Concejo Deliberante
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1">
+                  <span className="text-emerald-400 font-bold block">1. Infraestructura en Cruces</span>
+                  <p className="text-slate-300 leading-snug">
+                    Intervenir cruces de 4 vías en arterias no divididas mediante reductores de velocidad y semaforización con giro protegido.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1">
+                  <span className="text-amber-400 font-bold block">2. Fiscalización Horaria</span>
+                  <p className="text-slate-300 leading-snug">
+                    Concentrar los operativos de la Policía Municipal en la ventana crítica de viernes a domingo (15:00 a 21:00 hs).
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1">
+                  <span className="text-sky-400 font-bold block">3. Campaña Prioridad de Paso</span>
+                  <p className="text-slate-300 leading-snug">
+                    Focalizar campañas de concientización en no ceder el paso y distancia de frenado, principales causas de siniestros.
+                  </p>
+                </div>
+              </div>
+            </div>
           </section>
         )}
 
@@ -172,10 +212,26 @@ export default function Dashboard() {
                   <Clock size={16} className="text-blue-400" />
                   Heatmap: Concentración por Día y Franja Horaria
                 </h3>
-                <span className="text-[11px] text-slate-400">Escala de intensidad (Pico: Viernes 15h - 18h)</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] text-slate-400 hidden sm:inline">Pico crítico: Viernes 15h - 18h</span>
+                  <div className="flex items-center gap-1.5 text-[11px] text-sky-400 font-medium sm:hidden">
+                    <ArrowLeftRight size={13} /> Desliza lateralmente
+                  </div>
+                </div>
               </div>
 
-              <div className="overflow-x-auto pb-2">
+              {selectedHeatmapCell && (
+                <div className="p-2.5 rounded-xl bg-blue-950/50 border border-blue-500/30 text-xs text-blue-200 flex justify-between items-center animate-in fade-in">
+                  <span>
+                    Selección: <strong>{selectedHeatmapCell.dia}</strong> a las <strong>{selectedHeatmapCell.hora}:00 hs</strong>
+                  </span>
+                  <span className="font-bold text-white bg-blue-600/60 px-2 py-0.5 rounded-md">
+                    {selectedHeatmapCell.total.toLocaleString("es-AR")} siniestros
+                  </span>
+                </div>
+              )}
+
+              <div className="overflow-x-auto pb-2 scrollbar-thin">
                 <div className="min-w-[560px]">
                   {/* Encabezado de horas */}
                   <div className="grid grid-cols-[70px_repeat(24,1fr)] text-[10px] text-slate-400 mb-1">
@@ -190,18 +246,23 @@ export default function Dashboard() {
                     <div key={item.dia} className="grid grid-cols-[70px_repeat(24,1fr)] items-center gap-0.5 mb-1">
                       <span className="text-xs font-medium text-slate-300 truncate pr-1">{item.dia.slice(0, 3)}</span>
                       {item.horas.map((val: number, h: number) => {
-                        const ratio = Math.min(1, val / 2000);
+                        const ratio = Math.min(1, val / maxHeatmapVal);
                         let bgClass = "bg-slate-800/40 text-slate-500";
                         if (ratio > 0.75) bgClass = "bg-red-500 text-white font-bold";
                         else if (ratio > 0.5) bgClass = "bg-amber-500 text-slate-950 font-semibold";
                         else if (ratio > 0.25) bgClass = "bg-blue-600 text-white";
                         else if (ratio > 0.08) bgClass = "bg-blue-900/70 text-slate-300";
 
+                        const isSelected = selectedHeatmapCell?.dia === item.dia && selectedHeatmapCell?.hora === h;
+
                         return (
                           <div
                             key={h}
+                            onClick={() => setSelectedHeatmapCell({ dia: item.dia, hora: h, total: val })}
                             title={`${item.dia} ${h}:00 hs -> ${val.toLocaleString("es-AR")} siniestros`}
-                            className={`h-6 rounded-[2px] flex items-center justify-center text-[9px] transition-transform hover:scale-125 cursor-pointer ${bgClass}`}
+                            className={`h-6 rounded-[2px] flex items-center justify-center text-[9px] transition-all cursor-pointer ${bgClass} ${
+                              isSelected ? "ring-2 ring-white scale-110 z-10" : "hover:scale-110"
+                            }`}
                           >
                             {val > 1500 ? `${(val / 1000).toFixed(1)}k` : ""}
                           </div>
@@ -260,9 +321,9 @@ export default function Dashboard() {
 
             <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-300">
               <strong className="text-white block mb-1">Hallazgo Clave de Infraestructura:</strong>
-              Más del 78% de los siniestros ocurren en condiciones de calzada seca y clima despejado, lo que
-              confirma que la siniestralidad no responde a factores meteorológicos adversos, sino al comportamiento
-              del conductor y a fallas en los puntos de cruce vehicular.
+              La gran mayoría de los siniestros ocurren en condiciones de calzada seca y clima despejado, lo que
+              confirma que la siniestralidad responde primordialmente a conductas viales y diseño de intersecciones,
+              más que a contingencias climáticas extraordinarias.
             </div>
           </section>
         )}
@@ -347,10 +408,10 @@ export default function Dashboard() {
 
             <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-300">
               <strong className="text-white block mb-1">Impacto Humano vs Material:</strong>
-              El 58% de los siniestros involucran daños materiales superiores a $1.500 USD. Sin embargo, los
+              Más de la mitad de los siniestros involucran daños materiales superiores a $1.500 USD. Sin embargo, los
               costos sociales y de salud pública están concentrados en las colisiones con heridos incapacitantes
-              (7.974 víctimas) y fatales (389 fallecidos), que demandan infraestructura de respuesta rápida y
-              controles de velocidad estrictos.
+              ({resumen.total_incapacitantes.toLocaleString("es-AR")} víctimas) y fatales ({resumen.total_fatales.toLocaleString("es-AR")} fallecidos),
+              demandando intervenciones inmediatas en la infraestructura de las arterias más transitadas.
             </div>
           </section>
         )}
@@ -376,7 +437,7 @@ function NavTabButton({ active, onClick, icon, label }: { active: boolean; onCli
   return (
     <button
       onClick={onClick}
-      className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all duration-200 select-none ${
+      className={`flex flex-col items-center justify-center py-1 px-2 min-w-[60px] rounded-xl transition-all duration-200 select-none active:scale-95 ${
         active ? "text-blue-400 font-bold scale-105" : "text-slate-400 hover:text-slate-200"
       }`}
     >

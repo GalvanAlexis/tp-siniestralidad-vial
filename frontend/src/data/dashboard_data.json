@@ -1,370 +1,869 @@
 {
-  "kpis": {
-    "total_crashes": 209306,
-    "fatal_crashes": 351,
-    "injury_crashes": 54166,
-    "property_damage_only": 154789
+  "metadatos": {
+    "version": "2.0.0",
+    "origen": "data/clean/traffic_accidents_clean.csv",
+    "descripcion": "Datos agregados y normalizados para las 5 vistas del dashboard de siniestralidad vial"
   },
-  "time_patterns": {
-    "hourly": {
-      "0": 4487,
-      "1": 3729,
-      "2": 3080,
-      "3": 2364,
-      "4": 2104,
-      "5": 2819,
-      "6": 4772,
-      "7": 9405,
-      "8": 11381,
-      "9": 9300,
-      "10": 8990,
-      "11": 10052,
-      "12": 11726,
-      "13": 11949,
-      "14": 13349,
-      "15": 15894,
-      "16": 16025,
-      "17": 16097,
-      "18": 13431,
-      "19": 9683,
-      "20": 8219,
-      "21": 7472,
-      "22": 7035,
-      "23": 5943
-    },
-    "day_of_week": {
-      "Domingo": 25246,
-      "Lunes": 27938,
-      "Martes": 30074,
-      "Miércoles": 30093,
-      "Jueves": 30787,
-      "Viernes": 34458,
-      "Sábado": 30710
-    },
-    "monthly": {
-      "Ene": 16606,
-      "Feb": 14621,
-      "Mar": 15265,
-      "Abr": 15096,
-      "May": 17432,
-      "Jun": 17851,
-      "Jul": 17834,
-      "Ago": 18350,
-      "Sep": 19018,
-      "Oct": 20089,
-      "Nov": 18328,
-      "Dic": 18816
-    },
-    "fatal_hourly": {
-      "0": 10,
-      "1": 23,
-      "2": 21,
-      "3": 13,
-      "4": 12,
-      "5": 14,
-      "6": 4,
-      "7": 7,
-      "8": 8,
-      "9": 7,
-      "10": 7,
-      "11": 17,
-      "12": 17,
-      "13": 10,
-      "14": 12,
-      "15": 17,
-      "16": 11,
-      "17": 20,
-      "18": 18,
-      "19": 18,
-      "20": 15,
-      "21": 27,
-      "22": 20,
-      "23": 23
-    }
+  "resumen": {
+    "total_siniestros": 209275,
+    "total_lesionados": 80091,
+    "total_fatales": 389,
+    "total_incapacitantes": 7974,
+    "solo_danos": 154767,
+    "con_heridos": 54157,
+    "tasa_heridos_pct": 25.88,
+    "tasa_fatal_pct": 0.168,
+    "promedio_unidades_por_siniestro": 2.06
   },
-  "environmental": {
-    "weather": {
-      "Despejado": 164700,
-      "Lluvia": 21703,
-      "Nublado": 7533,
-      "Nieve": 6871,
-      "Desconocido": 6534,
-      "Otro": 627,
-      "Llovizna helada": 510,
-      "Niebla/Humo": 360
-    },
-    "lighting": {
-      "Día": 134109,
-      "Noche (Iluminada)": 53378,
-      "Noche (Oscura)": 7436,
-      "Atardecer": 6323,
-      "Desconocido": 4336
-    }
-  },
-  "causes": {
-    "No determinable": 58316,
-    "No ceder el paso": 42914,
-    "Distancia muy corta": 19084,
-    "Ignorar semáforo": 14591,
-    "Giro indebido": 12643,
-    "No reducir velocidad": 10676,
-    "Rebase indebido": 8302,
-    "Ignorar señal PARE": 6749,
-    "Uso indebido de carril": 6462,
-    "No aplica": 5241
-  },
-  "crash_types": {
-    "Girando": 64157,
-    "En ángulo": 52250,
-    "Por alcance": 42018,
-    "Roce misma dirección": 20116,
-    "Peatón": 8996,
-    "PEDALCYCLIST": 5337,
-    "Vehículo estacionado": 4893
-  },
-  "infrastructure": {
-    "trafficway": {
-      "No dividida": 77753,
-      "Cruce 4 vías": 49057,
-      "Dividida (sin cordón)": 34221,
-      "Mano única": 12341,
-      "Dividida (con barrera)": 10720,
-      "Intersección en T": 9233
-    }
-  },
-  "crossed_data": {
-    "cause_severity": [
+  "cuando": {
+    "por_anio": [
       {
-        "prim_contributory_cause": "Ignorar señal PARE",
-        "Con Heridos": 2363,
-        "Fatal": 11,
-        "Solo Daños": 4375
+        "anio": 2013,
+        "total": 2
       },
       {
-        "prim_contributory_cause": "Ignorar semáforo",
-        "Con Heridos": 6316,
-        "Fatal": 71,
-        "Solo Daños": 8204
+        "anio": 2015,
+        "total": 1917
       },
       {
-        "prim_contributory_cause": "No reducir velocidad",
-        "Con Heridos": 3421,
-        "Fatal": 27,
-        "Solo Daños": 7228
+        "anio": 2016,
+        "total": 7614
       },
       {
-        "prim_contributory_cause": "No ceder el paso",
-        "Con Heridos": 14718,
-        "Fatal": 66,
-        "Solo Daños": 28130
+        "anio": 2017,
+        "total": 17655
       },
       {
-        "prim_contributory_cause": "Distancia muy corta",
-        "Con Heridos": 2750,
+        "anio": 2018,
+        "total": 27430
+      },
+      {
+        "anio": 2019,
+        "total": 27957
+      },
+      {
+        "anio": 2020,
+        "total": 22777
+      },
+      {
+        "anio": 2021,
+        "total": 25689
+      },
+      {
+        "anio": 2022,
+        "total": 25540
+      },
+      {
+        "anio": 2023,
+        "total": 25446
+      },
+      {
+        "anio": 2024,
+        "total": 26212
+      },
+      {
+        "anio": 2025,
+        "total": 1036
+      }
+    ],
+    "por_mes": [
+      {
+        "mes": "Enero",
+        "total": 16605
+      },
+      {
+        "mes": "Febrero",
+        "total": 14617
+      },
+      {
+        "mes": "Marzo",
+        "total": 15264
+      },
+      {
+        "mes": "Abril",
+        "total": 15095
+      },
+      {
+        "mes": "Mayo",
+        "total": 17429
+      },
+      {
+        "mes": "Junio",
+        "total": 17848
+      },
+      {
+        "mes": "Julio",
+        "total": 17831
+      },
+      {
+        "mes": "Agosto",
+        "total": 18346
+      },
+      {
+        "mes": "Septiembre",
+        "total": 19013
+      },
+      {
+        "mes": "Octubre",
+        "total": 20088
+      },
+      {
+        "mes": "Noviembre",
+        "total": 18326
+      },
+      {
+        "mes": "Diciembre",
+        "total": 18813
+      }
+    ],
+    "por_dia": [
+      {
+        "dia": "Domingo",
+        "total": 25245
+      },
+      {
+        "dia": "Lunes",
+        "total": 27930
+      },
+      {
+        "dia": "Martes",
+        "total": 30068
+      },
+      {
+        "dia": "Miércoles",
+        "total": 30089
+      },
+      {
+        "dia": "Jueves",
+        "total": 30784
+      },
+      {
+        "dia": "Viernes",
+        "total": 34453
+      },
+      {
+        "dia": "Sábado",
+        "total": 30706
+      }
+    ],
+    "por_hora": [
+      {
+        "hora": 0,
+        "etiqueta": "00:00",
+        "total": 4487,
+        "fatales": 10
+      },
+      {
+        "hora": 1,
+        "etiqueta": "01:00",
+        "total": 3729,
+        "fatales": 23
+      },
+      {
+        "hora": 2,
+        "etiqueta": "02:00",
+        "total": 3080,
+        "fatales": 21
+      },
+      {
+        "hora": 3,
+        "etiqueta": "03:00",
+        "total": 2364,
+        "fatales": 13
+      },
+      {
+        "hora": 4,
+        "etiqueta": "04:00",
+        "total": 2104,
+        "fatales": 12
+      },
+      {
+        "hora": 5,
+        "etiqueta": "05:00",
+        "total": 2819,
+        "fatales": 14
+      },
+      {
+        "hora": 6,
+        "etiqueta": "06:00",
+        "total": 4771,
+        "fatales": 4
+      },
+      {
+        "hora": 7,
+        "etiqueta": "07:00",
+        "total": 9405,
+        "fatales": 7
+      },
+      {
+        "hora": 8,
+        "etiqueta": "08:00",
+        "total": 11379,
+        "fatales": 8
+      },
+      {
+        "hora": 9,
+        "etiqueta": "09:00",
+        "total": 9298,
+        "fatales": 7
+      },
+      {
+        "hora": 10,
+        "etiqueta": "10:00",
+        "total": 8989,
+        "fatales": 7
+      },
+      {
+        "hora": 11,
+        "etiqueta": "11:00",
+        "total": 10050,
+        "fatales": 17
+      },
+      {
+        "hora": 12,
+        "etiqueta": "12:00",
+        "total": 11725,
+        "fatales": 17
+      },
+      {
+        "hora": 13,
+        "etiqueta": "13:00",
+        "total": 11947,
+        "fatales": 10
+      },
+      {
+        "hora": 14,
+        "etiqueta": "14:00",
+        "total": 13346,
+        "fatales": 12
+      },
+      {
+        "hora": 15,
+        "etiqueta": "15:00",
+        "total": 15890,
+        "fatales": 17
+      },
+      {
+        "hora": 16,
+        "etiqueta": "16:00",
+        "total": 16020,
+        "fatales": 11
+      },
+      {
+        "hora": 17,
+        "etiqueta": "17:00",
+        "total": 16095,
+        "fatales": 20
+      },
+      {
+        "hora": 18,
+        "etiqueta": "18:00",
+        "total": 13429,
+        "fatales": 18
+      },
+      {
+        "hora": 19,
+        "etiqueta": "19:00",
+        "total": 9682,
+        "fatales": 18
+      },
+      {
+        "hora": 20,
+        "etiqueta": "20:00",
+        "total": 8219,
+        "fatales": 15
+      },
+      {
+        "hora": 21,
+        "etiqueta": "21:00",
+        "total": 7470,
+        "fatales": 27
+      },
+      {
+        "hora": 22,
+        "etiqueta": "22:00",
+        "total": 7035,
+        "fatales": 20
+      },
+      {
+        "hora": 23,
+        "etiqueta": "23:00",
+        "total": 5942,
+        "fatales": 23
+      }
+    ],
+    "heatmap": [
+      {
+        "dia": "Domingo",
+        "horas": [
+          1220,
+          1184,
+          1059,
+          913,
+          608,
+          469,
+          428,
+          452,
+          497,
+          768,
+          985,
+          1193,
+          1403,
+          1487,
+          1583,
+          1581,
+          1483,
+          1493,
+          1419,
+          1190,
+          1093,
+          1056,
+          916,
+          765
+        ]
+      },
+      {
+        "dia": "Lunes",
+        "horas": [
+          538,
+          390,
+          303,
+          197,
+          221,
+          404,
+          733,
+          1579,
+          1848,
+          1329,
+          1230,
+          1358,
+          1596,
+          1588,
+          1865,
+          2273,
+          2312,
+          2273,
+          1657,
+          1185,
+          958,
+          839,
+          722,
+          532
+        ]
+      },
+      {
+        "dia": "Martes",
+        "horas": [
+          367,
+          249,
+          166,
+          130,
+          167,
+          365,
+          806,
+          1803,
+          2125,
+          1582,
+          1308,
+          1465,
+          1647,
+          1654,
+          1898,
+          2421,
+          2541,
+          2593,
+          2067,
+          1374,
+          1068,
+          897,
+          795,
+          580
+        ]
+      },
+      {
+        "dia": "Miércoles",
+        "horas": [
+          393,
+          270,
+          187,
+          164,
+          187,
+          401,
+          837,
+          1768,
+          2172,
+          1561,
+          1302,
+          1380,
+          1603,
+          1610,
+          1908,
+          2357,
+          2441,
+          2639,
+          2085,
+          1360,
+          1055,
+          972,
+          797,
+          640
+        ]
+      },
+      {
+        "dia": "Jueves",
+        "horas": [
+          461,
+          260,
+          216,
+          154,
+          199,
+          382,
+          754,
+          1718,
+          2074,
+          1492,
+          1437,
+          1446,
+          1652,
+          1666,
+          1875,
+          2477,
+          2609,
+          2520,
+          2102,
+          1352,
+          1201,
+          1008,
+          956,
+          773
+        ]
+      },
+      {
+        "dia": "Viernes",
+        "horas": [
+          491,
+          417,
+          294,
+          221,
+          261,
+          439,
+          752,
+          1513,
+          1908,
+          1510,
+          1379,
+          1630,
+          1847,
+          1962,
+          2312,
+          2735,
+          2732,
+          2694,
+          2323,
+          1698,
+          1401,
+          1347,
+          1403,
+          1184
+        ]
+      },
+      {
+        "dia": "Sábado",
+        "horas": [
+          1017,
+          959,
+          855,
+          585,
+          461,
+          359,
+          461,
+          572,
+          755,
+          1056,
+          1348,
+          1578,
+          1977,
+          1980,
+          1905,
+          2046,
+          1902,
+          1883,
+          1776,
+          1523,
+          1443,
+          1351,
+          1446,
+          1468
+        ]
+      }
+    ]
+  },
+  "condiciones": {
+    "clima": [
+      {
+        "clima_grupo": "Despejado",
+        "total": 164673
+      },
+      {
+        "clima_grupo": "Precipitación",
+        "total": 29516
+      },
+      {
+        "clima_grupo": "Nublado",
+        "total": 7532
+      },
+      {
+        "clima_grupo": "Desconocido",
+        "total": 6534
+      },
+      {
+        "clima_grupo": "Otro",
+        "total": 627
+      },
+      {
+        "clima_grupo": "Neblina o humo",
+        "total": 360
+      },
+      {
+        "clima_grupo": "Viento o partículas",
+        "total": 33
+      }
+    ],
+    "iluminacion": [
+      {
+        "iluminacion_grupo": "Día",
+        "total": 134083
+      },
+      {
+        "iluminacion_grupo": "Noche con iluminación",
+        "total": 53375
+      },
+      {
+        "iluminacion_grupo": "Transición",
+        "total": 10045
+      },
+      {
+        "iluminacion_grupo": "Noche sin iluminación",
+        "total": 7436
+      },
+      {
+        "iluminacion_grupo": "Desconocida",
+        "total": 4336
+      }
+    ],
+    "calzada": [
+      {
+        "calzada_grupo": "Seca",
+        "total": 155878
+      },
+      {
+        "calzada_grupo": "Mojada",
+        "total": 32906
+      },
+      {
+        "calzada_grupo": "Desconocida",
+        "total": 12509
+      },
+      {
+        "calzada_grupo": "Invernal",
+        "total": 7504
+      },
+      {
+        "calzada_grupo": "Otra",
+        "total": 438
+      },
+      {
+        "calzada_grupo": "Suelta",
+        "total": 40
+      }
+    ],
+    "defectos": [
+      {
+        "defecto": "NO DEFECTS",
+        "total": 171702
+      },
+      {
+        "defecto": "UNKNOWN",
+        "total": 34423
+      },
+      {
+        "defecto": "WORN SURFACE",
+        "total": 1000
+      },
+      {
+        "defecto": "OTHER",
+        "total": 912
+      },
+      {
+        "defecto": "RUT, HOLES",
+        "total": 741
+      }
+    ],
+    "calzada_severidad": [
+      {
+        "calzada_grupo": "Desconocida",
+        "Con Heridos": 1962,
+        "Fatal": 7,
+        "Solo Daños": 10540
+      },
+      {
+        "calzada_grupo": "Invernal",
+        "Con Heridos": 1472,
+        "Fatal": 7,
+        "Solo Daños": 6025
+      },
+      {
+        "calzada_grupo": "Mojada",
+        "Con Heridos": 9335,
+        "Fatal": 49,
+        "Solo Daños": 23522
+      },
+      {
+        "calzada_grupo": "Otra",
+        "Con Heridos": 134,
         "Fatal": 1,
-        "Solo Daños": 16333
+        "Solo Daños": 303
       },
       {
-        "prim_contributory_cause": "Rebase indebido",
-        "Con Heridos": 886,
-        "Fatal": 8,
-        "Solo Daños": 7408
+        "calzada_grupo": "Seca",
+        "Con Heridos": 41243,
+        "Fatal": 287,
+        "Solo Daños": 114348
       },
       {
-        "prim_contributory_cause": "Giro indebido",
-        "Con Heridos": 2261,
-        "Fatal": 6,
-        "Solo Daños": 10376
-      },
-      {
-        "prim_contributory_cause": "No determinable",
-        "Con Heridos": 13025,
-        "Fatal": 86,
-        "Solo Daños": 45205
+        "calzada_grupo": "Suelta",
+        "Con Heridos": 11,
+        "Fatal": 0,
+        "Solo Daños": 29
       }
     ],
-    "light_hour": [
+    "iluminacion_severidad": [
       {
-        "crash_hour": 0,
-        "Día": 38,
-        "Noche (Iluminada)": 3973,
-        "Noche (Oscura)": 335
+        "iluminacion_grupo": "Desconocida",
+        "Con Heridos": 535,
+        "Fatal": 1,
+        "Solo Daños": 3800
       },
       {
-        "crash_hour": 1,
-        "Día": 94,
-        "Noche (Iluminada)": 3238,
-        "Noche (Oscura)": 290
+        "iluminacion_grupo": "Día",
+        "Con Heridos": 33383,
+        "Fatal": 145,
+        "Solo Daños": 100555
       },
       {
-        "crash_hour": 2,
-        "Día": 63,
-        "Noche (Iluminada)": 2682,
-        "Noche (Oscura)": 239
+        "iluminacion_grupo": "Noche con iluminación",
+        "Con Heridos": 15551,
+        "Fatal": 167,
+        "Solo Daños": 37657
       },
       {
-        "crash_hour": 3,
-        "Día": 47,
-        "Noche (Iluminada)": 2046,
-        "Noche (Oscura)": 180
+        "iluminacion_grupo": "Noche sin iluminación",
+        "Con Heridos": 2042,
+        "Fatal": 22,
+        "Solo Daños": 5372
       },
       {
-        "crash_hour": 4,
-        "Día": 103,
-        "Noche (Iluminada)": 1584,
-        "Noche (Oscura)": 179
+        "iluminacion_grupo": "Transición",
+        "Con Heridos": 2646,
+        "Fatal": 16,
+        "Solo Daños": 7383
+      }
+    ]
+  },
+  "por_que": {
+    "causas_top": [
+      {
+        "causa": "UNABLE TO DETERMINE",
+        "total": 58310
       },
       {
-        "crash_hour": 5,
-        "Día": 628,
-        "Noche (Iluminada)": 1295,
-        "Noche (Oscura)": 174
+        "causa": "FAILING TO YIELD RIGHT-OF-WAY",
+        "total": 42909
       },
       {
-        "crash_hour": 6,
-        "Día": 2847,
-        "Noche (Iluminada)": 700,
-        "Noche (Oscura)": 124
+        "causa": "FOLLOWING TOO CLOSELY",
+        "total": 19074
       },
       {
-        "crash_hour": 7,
-        "Día": 8774,
-        "Noche (Iluminada)": 105,
-        "Noche (Oscura)": 28
+        "causa": "DISREGARDING TRAFFIC SIGNALS",
+        "total": 14590
       },
       {
-        "crash_hour": 8,
-        "Día": 11062,
-        "Noche (Iluminada)": 74,
-        "Noche (Oscura)": 20
+        "causa": "IMPROPER TURNING/NO SIGNAL",
+        "total": 12642
       },
       {
-        "crash_hour": 9,
-        "Día": 9021,
-        "Noche (Iluminada)": 86,
-        "Noche (Oscura)": 26
+        "causa": "FAILING TO REDUCE SPEED TO AVOID CRASH",
+        "total": 10675
       },
       {
-        "crash_hour": 10,
-        "Día": 8706,
-        "Noche (Iluminada)": 93,
-        "Noche (Oscura)": 38
+        "causa": "IMPROPER OVERTAKING/PASSING",
+        "total": 8302
       },
       {
-        "crash_hour": 11,
-        "Día": 9719,
-        "Noche (Iluminada)": 121,
-        "Noche (Oscura)": 26
-      },
-      {
-        "crash_hour": 12,
-        "Día": 11372,
-        "Noche (Iluminada)": 72,
-        "Noche (Oscura)": 35
-      },
-      {
-        "crash_hour": 13,
-        "Día": 11602,
-        "Noche (Iluminada)": 34,
-        "Noche (Oscura)": 12
-      },
-      {
-        "crash_hour": 14,
-        "Día": 12841,
-        "Noche (Iluminada)": 62,
-        "Noche (Oscura)": 15
-      },
-      {
-        "crash_hour": 15,
-        "Día": 14886,
-        "Noche (Iluminada)": 160,
-        "Noche (Oscura)": 41
-      },
-      {
-        "crash_hour": 16,
-        "Día": 13017,
-        "Noche (Iluminada)": 1147,
-        "Noche (Oscura)": 248
-      },
-      {
-        "crash_hour": 17,
-        "Día": 9965,
-        "Noche (Iluminada)": 3522,
-        "Noche (Oscura)": 707
-      },
-      {
-        "crash_hour": 18,
-        "Día": 6220,
-        "Noche (Iluminada)": 4365,
-        "Noche (Oscura)": 956
-      },
-      {
-        "crash_hour": 19,
-        "Día": 2417,
-        "Noche (Iluminada)": 4791,
-        "Noche (Oscura)": 886
-      },
-      {
-        "crash_hour": 20,
-        "Día": 411,
-        "Noche (Iluminada)": 5921,
-        "Noche (Oscura)": 966
-      },
-      {
-        "crash_hour": 21,
-        "Día": 132,
-        "Noche (Iluminada)": 6056,
-        "Noche (Oscura)": 840
-      },
-      {
-        "crash_hour": 22,
-        "Día": 77,
-        "Noche (Iluminada)": 6059,
-        "Noche (Oscura)": 573
-      },
-      {
-        "crash_hour": 23,
-        "Día": 67,
-        "Noche (Iluminada)": 5192,
-        "Noche (Oscura)": 498
+        "causa": "DISREGARDING STOP SIGN",
+        "total": 6746
       }
     ],
-    "via_severity": [
+    "dispositivos_top": [
       {
-        "trafficway_type": "Dividida (sin cordón)",
-        "Con Heridos": 8356,
-        "Fatal": 68,
-        "Solo Daños": 25797
+        "dispositivo": "TRAFFIC SIGNAL",
+        "total": 123923
       },
       {
-        "trafficway_type": "Dividida (con barrera)",
-        "Con Heridos": 2887,
-        "Fatal": 25,
-        "Solo Daños": 7808
+        "dispositivo": "STOP SIGN/FLASHER",
+        "total": 49131
       },
       {
-        "trafficway_type": "Cruce 4 vías",
-        "Con Heridos": 15740,
-        "Fatal": 91,
-        "Solo Daños": 33226
+        "dispositivo": "NO CONTROLS",
+        "total": 29507
       },
       {
-        "trafficway_type": "No dividida",
-        "Con Heridos": 18056,
-        "Fatal": 105,
-        "Solo Daños": 59592
+        "dispositivo": "UNKNOWN",
+        "total": 4455
       },
       {
-        "trafficway_type": "Mano única",
-        "Con Heridos": 2388,
-        "Fatal": 18,
-        "Solo Daños": 9935
+        "dispositivo": "OTHER",
+        "total": 669
       },
       {
-        "trafficway_type": "Intersección en T",
-        "Con Heridos": 2668,
-        "Fatal": 15,
-        "Solo Daños": 6550
+        "dispositivo": "YIELD",
+        "total": 468
+      },
+      {
+        "dispositivo": "PEDESTRIAN CROSSING SIGN",
+        "total": 247
+      },
+      {
+        "dispositivo": "OTHER REG. SIGN",
+        "total": 181
+      }
+    ],
+    "tipos_via_top": [
+      {
+        "tipo_via": "NOT DIVIDED",
+        "total": 77737
+      },
+      {
+        "tipo_via": "FOUR WAY",
+        "total": 49050
+      },
+      {
+        "tipo_via": "DIVIDED - W/MEDIAN (NOT RAISED)",
+        "total": 34217
+      },
+      {
+        "tipo_via": "ONE-WAY",
+        "total": 12340
+      },
+      {
+        "tipo_via": "DIVIDED - W/MEDIAN BARRIER",
+        "total": 10719
+      },
+      {
+        "tipo_via": "T-INTERSECTION",
+        "total": 9232
+      },
+      {
+        "tipo_via": "OTHER",
+        "total": 4756
+      },
+      {
+        "tipo_via": "CENTER TURN LANE",
+        "total": 2862
+      }
+    ],
+    "interseccion": [
+      {
+        "categoria": "En Intersección",
+        "total": 199294
+      },
+      {
+        "categoria": "Tramo Recto / No Intersección",
+        "total": 9981
+      }
+    ],
+    "priorizacion_vias": [
+      {
+        "tipo_via": "NOT DIVIDED",
+        "no_interseccion": 4537,
+        "interseccion": 73200
+      },
+      {
+        "tipo_via": "FOUR WAY",
+        "no_interseccion": 732,
+        "interseccion": 48318
+      },
+      {
+        "tipo_via": "DIVIDED - W/MEDIAN (NOT RAISED)",
+        "no_interseccion": 1862,
+        "interseccion": 32355
+      },
+      {
+        "tipo_via": "ONE-WAY",
+        "no_interseccion": 975,
+        "interseccion": 11365
+      },
+      {
+        "tipo_via": "DIVIDED - W/MEDIAN BARRIER",
+        "no_interseccion": 659,
+        "interseccion": 10060
+      },
+      {
+        "tipo_via": "T-INTERSECTION",
+        "no_interseccion": 187,
+        "interseccion": 9045
+      }
+    ]
+  },
+  "severidad": {
+    "distribucion": [
+      {
+        "nivel": "Solo Daños",
+        "total": 154767,
+        "color": "#3b82f6"
+      },
+      {
+        "nivel": "Con Heridos",
+        "total": 54157,
+        "color": "#f59e0b"
+      },
+      {
+        "nivel": "Fatal",
+        "total": 351,
+        "color": "#ef4444"
+      }
+    ],
+    "danos_materiales": [
+      {
+        "rango_dano": "OVER $1,500",
+        "total": 147294
+      },
+      {
+        "rango_dano": "$501 - $1,500",
+        "total": 41203
+      },
+      {
+        "rango_dano": "$500 OR LESS",
+        "total": 20778
+      }
+    ],
+    "lesiones_detalle": [
+      {
+        "tipo": "Fatales",
+        "cantidad": 389
+      },
+      {
+        "tipo": "Incapacitantes",
+        "cantidad": 7974
+      },
+      {
+        "tipo": "No Incapacitantes",
+        "cantidad": 46297
+      },
+      {
+        "tipo": "Reportadas Sin Evidencia",
+        "cantidad": 25431
       }
     ]
   }

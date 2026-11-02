@@ -1,0 +1,766 @@
+{
+  "generado": {
+    "script": "backend/prepare_dataset.py",
+    "version": "1.0.0",
+    "fecha_utc": "2026-11-02T15:31:50Z",
+    "python": "3.14.2",
+    "pandas": "3.0.6"
+  },
+  "fuente": {
+    "archivo": "traffic_accidents.csv",
+    "ruta_declarada": "traffic_accidents.csv",
+    "sha256": "9493c45d63c21ad259268021b678ef75542087ed6957ef52c8734252cbbde238",
+    "bytes": 51081134,
+    "filas": 209306,
+    "columnas": 24
+  },
+  "salida": {
+    "archivo": "data/clean/traffic_accidents_clean.csv",
+    "filas": 209275,
+    "columnas": 34,
+    "columnas_derivadas": [
+      "fecha",
+      "anio",
+      "dia_semana",
+      "mes_nombre",
+      "severidad",
+      "lesionados",
+      "iluminacion_grupo",
+      "clima_grupo",
+      "calzada_grupo",
+      "interseccion"
+    ],
+    "bytes": 68787506
+  },
+  "reglas": [
+    {
+      "id": "R1",
+      "descripcion": "Se eliminan filas duplicadas exactas (mismo valor en las 24 columnas).",
+      "columnas": [
+        "todas"
+      ],
+      "filas_afectadas": 31,
+      "justificacion": "Un registro repetido infla los conteos sin aportar información nueva."
+    },
+    {
+      "id": "R2",
+      "descripcion": "Se recortan espacios en blanco al inicio y al final de cada valor de texto.",
+      "columnas": [
+        "crash_date",
+        "traffic_control_device",
+        "weather_condition",
+        "lighting_condition",
+        "first_crash_type",
+        "trafficway_type",
+        "alignment",
+        "roadway_surface_cond",
+        "road_defect",
+        "crash_type",
+        "intersection_related_i",
+        "damage",
+        "prim_contributory_cause",
+        "most_severe_injury"
+      ],
+      "filas_afectadas": 0,
+      "justificacion": "Evita categorías duplicadas por espacios invisibles."
+    },
+    {
+      "id": "R3",
+      "descripcion": "crash_date se parsea con formato MM/DD/AAAA HH:MM:SS AM/PM y se guarda como fecha ISO.",
+      "columnas": [
+        "crash_date",
+        "fecha"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Permite ordenar y agrupar en el tiempo. Valores no parseables: 0."
+    },
+    {
+      "id": "R4",
+      "descripcion": "Se deriva anio desde fecha.",
+      "columnas": [
+        "fecha",
+        "anio"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Facilita la serie anual sin volver a parsear la fecha."
+    },
+    {
+      "id": "R5",
+      "descripcion": "Se deriva dia_semana desde crash_day_of_week con la codificación 1 = domingo ... 7 = sábado.",
+      "columnas": [
+        "crash_day_of_week",
+        "dia_semana"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "La codificación se verificó contra la fecha completa: 0 discrepancias."
+    },
+    {
+      "id": "R6",
+      "descripcion": "Se deriva mes_nombre desde crash_month.",
+      "columnas": [
+        "crash_month",
+        "mes_nombre"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Las etiquetas legibles evitan errores de lectura en gráficos."
+    },
+    {
+      "id": "R7",
+      "descripcion": "Se deriva severidad: Fatal si injuries_fatal > 0; Con Heridos si injuries_total > 0; en otro caso Solo Daños.",
+      "columnas": [
+        "injuries_fatal",
+        "injuries_total",
+        "severidad"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Fatal tiene prioridad para no diluir los hechos más graves."
+    },
+    {
+      "id": "R8",
+      "descripcion": "lesionados replica injuries_total como entero.",
+      "columnas": [
+        "injuries_total",
+        "lesionados"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Evita decimales espurios en el conteo de personas."
+    },
+    {
+      "id": "R9",
+      "descripcion": "Se agrupa weather_condition en clima_grupo (12 categorías originales).",
+      "columnas": [
+        "weather_condition",
+        "clima_grupo"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Concentra las categorías con muy pocos casos para que las comparaciones sean legibles."
+    },
+    {
+      "id": "R10",
+      "descripcion": "Se agrupa lighting_condition en iluminacion_grupo (6 categorías originales).",
+      "columnas": [
+        "lighting_condition",
+        "iluminacion_grupo"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Permite comparar día contra noche con y sin iluminación."
+    },
+    {
+      "id": "R11",
+      "descripcion": "Se agrupa roadway_surface_cond en calzada_grupo (7 categorías originales).",
+      "columnas": [
+        "roadway_surface_cond",
+        "calzada_grupo"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Nieve y hielo comparten condición invernal; el resto queda separado."
+    },
+    {
+      "id": "R12",
+      "descripcion": "Se traduce intersection_related_i (Y/N) a interseccion (1/0).",
+      "columnas": [
+        "intersection_related_i",
+        "interseccion"
+      ],
+      "filas_afectadas": 209275,
+      "justificacion": "Es la variable que permite responder dónde priorizar sin coordenadas geográficas."
+    }
+  ],
+  "calidad": {
+    "faltantes_por_columna": {
+      "crash_date": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "traffic_control_device": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "weather_condition": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "lighting_condition": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "first_crash_type": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "trafficway_type": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "alignment": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "roadway_surface_cond": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "road_defect": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "crash_type": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "intersection_related_i": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "damage": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "prim_contributory_cause": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "num_units": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "most_severe_injury": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_total": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_fatal": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_incapacitating": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_non_incapacitating": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_reported_not_evident": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "injuries_no_indication": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "crash_hour": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "crash_day_of_week": {
+        "n": 0,
+        "pct": 0.0
+      },
+      "crash_month": {
+        "n": 0,
+        "pct": 0.0
+      }
+    },
+    "total_celdas_faltantes": 0,
+    "duplicados_exactos": 31,
+    "cardinalidad": {
+      "crash_date": 189087,
+      "traffic_control_device": 19,
+      "weather_condition": 12,
+      "lighting_condition": 6,
+      "first_crash_type": 18,
+      "trafficway_type": 20,
+      "alignment": 6,
+      "roadway_surface_cond": 7,
+      "road_defect": 7,
+      "crash_type": 2,
+      "intersection_related_i": 2,
+      "damage": 3,
+      "prim_contributory_cause": 40,
+      "num_units": 11,
+      "most_severe_injury": 5,
+      "injuries_total": 19,
+      "injuries_fatal": 4,
+      "injuries_incapacitating": 8,
+      "injuries_non_incapacitating": 19,
+      "injuries_reported_not_evident": 13,
+      "injuries_no_indication": 39,
+      "crash_hour": 24,
+      "crash_day_of_week": 7,
+      "crash_month": 12
+    },
+    "sentinelas": {
+      "traffic_control_device": {
+        "UNKNOWN": 4455,
+        "OTHER": 670
+      },
+      "weather_condition": {
+        "UNKNOWN": 6534,
+        "OTHER": 627
+      },
+      "lighting_condition": {
+        "UNKNOWN": 4336
+      },
+      "trafficway_type": {
+        "UNKNOWN": 1060,
+        "UNKNOWN INTERSECTION TYPE": 1885,
+        "OTHER": 4757
+      },
+      "roadway_surface_cond": {
+        "UNKNOWN": 12509,
+        "OTHER": 438
+      },
+      "road_defect": {
+        "UNKNOWN": 34426,
+        "OTHER": 912
+      },
+      "prim_contributory_cause": {
+        "NOT APPLICABLE": 5241,
+        "UNABLE TO DETERMINE": 58316
+      }
+    },
+    "rangos": {
+      "num_units": {
+        "min": 1.0,
+        "max": 11.0,
+        "media": 2.0633
+      },
+      "injuries_total": {
+        "min": 0.0,
+        "max": 21.0,
+        "media": 0.3827
+      },
+      "injuries_fatal": {
+        "min": 0.0,
+        "max": 3.0,
+        "media": 0.0019
+      },
+      "injuries_incapacitating": {
+        "min": 0.0,
+        "max": 7.0,
+        "media": 0.0381
+      },
+      "injuries_non_incapacitating": {
+        "min": 0.0,
+        "max": 21.0,
+        "media": 0.2212
+      },
+      "injuries_reported_not_evident": {
+        "min": 0.0,
+        "max": 15.0,
+        "media": 0.1215
+      },
+      "injuries_no_indication": {
+        "min": 0.0,
+        "max": 49.0,
+        "media": 2.244
+      },
+      "crash_hour": {
+        "min": 0.0,
+        "max": 23.0,
+        "media": 13.373
+      },
+      "crash_day_of_week": {
+        "min": 1.0,
+        "max": 7.0,
+        "media": 4.144
+      },
+      "crash_month": {
+        "min": 1.0,
+        "max": 12.0,
+        "media": 6.7718
+      },
+      "rango_temporal": {
+        "desde": "2013-03-03 16:48:00",
+        "hasta": "2025-01-18 00:17:00",
+        "anios_cubiertos": 11.88
+      }
+    },
+    "valores_atipicos": {
+      "num_units": {
+        "q1": 2.0,
+        "q3": 2.0,
+        "limite_superior_iqr": 2.0,
+        "casos_por_encima": 14817,
+        "p99": 4.0
+      },
+      "injuries_total": {
+        "q1": 0.0,
+        "q3": 1.0,
+        "limite_superior_iqr": 2.5,
+        "casos_por_encima": 5692,
+        "p99": 4.0
+      },
+      "fuera_de_rango": {
+        "crash_hour_fuera_0_23": 0,
+        "crash_day_of_week_fuera_1_7": 0,
+        "crash_month_fuera_1_12": 0,
+        "lesiones_negativas": 0
+      }
+    },
+    "coherencia_lesiones": {
+      "total_igual_suma_de_cuatro_componentes": 209306,
+      "total_distinto_de_suma_de_cuatro_componentes": 0,
+      "fatal_sin_lesionados": 0,
+      "no_indication_incluido_en_total": false,
+      "nota": "injuries_no_indication cuenta personas sin indicio de lesión y no integra injuries_total."
+    },
+    "distribucion_lesiones": {
+      "injuries_total": 80105,
+      "injuries_fatal": 389,
+      "injuries_incapacitating": 7975,
+      "injuries_non_incapacitating": 46307,
+      "injuries_reported_not_evident": 25434,
+      "injuries_no_indication": 469683,
+      "hechos_con_lesionados": 54517,
+      "hechos_sin_lesionados": 154789
+    },
+    "distribucion_severidad": {
+      "Solo Daños": {
+        "n": 154767,
+        "pct": 73.954
+      },
+      "Con Heridos": {
+        "n": 54157,
+        "pct": 25.878
+      },
+      "Fatal": {
+        "n": 351,
+        "pct": 0.168
+      }
+    },
+    "principales_causas": {
+      "UNABLE TO DETERMINE": 58310,
+      "FAILING TO YIELD RIGHT-OF-WAY": 42909,
+      "FOLLOWING TOO CLOSELY": 19074,
+      "DISREGARDING TRAFFIC SIGNALS": 14590,
+      "IMPROPER TURNING/NO SIGNAL": 12642,
+      "FAILING TO REDUCE SPEED TO AVOID CRASH": 10675,
+      "IMPROPER OVERTAKING/PASSING": 8302,
+      "DISREGARDING STOP SIGN": 6746,
+      "IMPROPER LANE USAGE": 6460,
+      "NOT APPLICABLE": 5241
+    },
+    "problemas_de_calidad": [
+      "31 filas duplicadas exactas (resueltas en R1).",
+      "154789 hechos (73.953%) son solo daño material: la severidad está muy desbalanceada.",
+      "No hay valores nulos, pero el dato faltante está codificado como categoría (UNKNOWN, OTHER, NOT APPLICABLE, UNABLE TO DETERMINE); no se eliminan, se documentan.",
+      "58316 hechos sin causa determinable: el ranking de causas debe leerse sobre el total, no como causa real.",
+      "crash_type clasifica por lesión o acarreo, no por gravedad: incluye casos con acarreo y sin lesionados. La severidad del análisis se deriva de las columnas de lesiones, no de crash_type.",
+      "El dataset no tiene coordenadas geográficas: el análisis espacial debe hacerse con tipo de vía, dispositivo de control e intersección.",
+      "No hay información de exposición (volumen de tránsito): una frecuencia alta no implica por sí sola mayor riesgo."
+    ]
+  },
+  "variables": [
+    {
+      "nombre": "crash_date",
+      "tipo": "string",
+      "descripcion": "Fecha y hora del siniestro registrada en el acta policial (MM/DD/AAAA HH:MM:SS AM/PM).",
+      "uso": "trazabilidad",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 189087,
+      "origen": "original"
+    },
+    {
+      "nombre": "traffic_control_device",
+      "tipo": "string",
+      "descripcion": "Dispositivo de control de tránsito presente en el lugar (semáforo, PARE, sin control).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 19,
+      "origen": "original"
+    },
+    {
+      "nombre": "weather_condition",
+      "tipo": "string",
+      "descripcion": "Condición climática al momento del hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 12,
+      "origen": "original"
+    },
+    {
+      "nombre": "lighting_condition",
+      "tipo": "string",
+      "descripcion": "Condición de iluminación al momento del hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 6,
+      "origen": "original"
+    },
+    {
+      "nombre": "first_crash_type",
+      "tipo": "string",
+      "descripcion": "Tipo de choque registrado primero en el acta (alcance, ángulo, giro, peatón).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 18,
+      "origen": "original"
+    },
+    {
+      "nombre": "trafficway_type",
+      "tipo": "string",
+      "descripcion": "Tipo de vía donde ocurrió (calle no dividida, cruce de 4 vías, mano única, rotonda).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 20,
+      "origen": "original"
+    },
+    {
+      "nombre": "alignment",
+      "tipo": "string",
+      "descripcion": "Alineación y pendiente de la calzada (recta, curva, nivel, pendiente).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 6,
+      "origen": "original"
+    },
+    {
+      "nombre": "roadway_surface_cond",
+      "tipo": "string",
+      "descripcion": "Estado de la superficie de la calzada (seca, mojada, helada, con nieve).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 7,
+      "origen": "original"
+    },
+    {
+      "nombre": "road_defect",
+      "tipo": "string",
+      "descripcion": "Defecto de la vía detectado (sin defectos, superficie desgastada, baches, escombros).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 7,
+      "origen": "original"
+    },
+    {
+      "nombre": "crash_type",
+      "tipo": "string",
+      "descripcion": "Clasificación administrativa del hecho: solo daño con retiro propio o lesión/acarreo.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 2,
+      "origen": "original"
+    },
+    {
+      "nombre": "intersection_related_i",
+      "tipo": "string",
+      "descripcion": "Indica si el hecho está relacionado con una intersección (Y/N).",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 2,
+      "origen": "original"
+    },
+    {
+      "nombre": "damage",
+      "tipo": "string",
+      "descripcion": "Magnitud del daño material declarada en tramos de monto.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 3,
+      "origen": "original"
+    },
+    {
+      "nombre": "prim_contributory_cause",
+      "tipo": "string",
+      "descripcion": "Causa contributiva principal atribuida por el oficial de turno.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 40,
+      "origen": "original"
+    },
+    {
+      "nombre": "num_units",
+      "tipo": "int64",
+      "descripcion": "Cantidad de unidades (vehículos y/o peatones) involucradas en el hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 11,
+      "origen": "original"
+    },
+    {
+      "nombre": "most_severe_injury",
+      "tipo": "string",
+      "descripcion": "Lesión más grave registrada en el hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 5,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_total",
+      "tipo": "float64",
+      "descripcion": "Total de personas lesionadas en el hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 19,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_fatal",
+      "tipo": "float64",
+      "descripcion": "Personas fallecidas en el hecho.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 4,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_incapacitating",
+      "tipo": "float64",
+      "descripcion": "Lesionados con incapacidad.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 8,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_non_incapacitating",
+      "tipo": "float64",
+      "descripcion": "Lesionados sin incapacidad.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 19,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_reported_not_evident",
+      "tipo": "float64",
+      "descripcion": "Lesionados reportados sin evidencia visible en el lugar.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 13,
+      "origen": "original"
+    },
+    {
+      "nombre": "injuries_no_indication",
+      "tipo": "float64",
+      "descripcion": "Personas involucradas sin indicio de lesión. NO integra injuries_total.",
+      "uso": "calidad",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 39,
+      "origen": "original"
+    },
+    {
+      "nombre": "crash_hour",
+      "tipo": "int64",
+      "descripcion": "Hora del siniestro en formato 0-23.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 24,
+      "origen": "original"
+    },
+    {
+      "nombre": "crash_day_of_week",
+      "tipo": "int64",
+      "descripcion": "Día de la semana del siniestro con codificación 1 = domingo ... 7 = sábado.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 7,
+      "origen": "original"
+    },
+    {
+      "nombre": "crash_month",
+      "tipo": "int64",
+      "descripcion": "Mes del siniestro en formato 1-12.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 12,
+      "origen": "original"
+    },
+    {
+      "nombre": "fecha",
+      "tipo": "str",
+      "descripcion": "Derivada de crash_date en formato ISO (AAAA-MM-DD HH:MM:SS).",
+      "uso": "modelo",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 189087,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "anio",
+      "tipo": "Int64",
+      "descripcion": "Derivada de fecha: año del siniestro.",
+      "uso": "modelo",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 12,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "dia_semana",
+      "tipo": "string",
+      "descripcion": "Derivada de crash_day_of_week: nombre del día en español.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 7,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "mes_nombre",
+      "tipo": "string",
+      "descripcion": "Derivada de crash_month: nombre del mes en español.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 12,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "severidad",
+      "tipo": "string",
+      "descripcion": "Derivada de las lesiones: Fatal (injuries_fatal > 0), Con Heridos (injuries_total > 0) o Solo Daños.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 3,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "lesionados",
+      "tipo": "Int64",
+      "descripcion": "Derivada de injuries_total con tipo entero.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 19,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "iluminacion_grupo",
+      "tipo": "string",
+      "descripcion": "Agrupación de lighting_condition en Día, Noche con iluminación, Noche sin iluminación, Transición o Desconocida.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 5,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "clima_grupo",
+      "tipo": "string",
+      "descripcion": "Agrupación de weather_condition en Despejado, Nublado, Precipitación, Neblina o humo, Viento o partículas, Otro o Desconocido.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 7,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "calzada_grupo",
+      "tipo": "string",
+      "descripcion": "Agrupación de roadway_surface_cond en Seca, Mojada, Invernal, Suelta, Otra o Desconocida.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 6,
+      "origen": "derivada"
+    },
+    {
+      "nombre": "interseccion",
+      "tipo": "Int64",
+      "descripcion": "Derivada de intersection_related_i: 1 si el hecho está asociado a una intersección, 0 si no.",
+      "uso": "dashboard",
+      "faltantes_pct": 0.0,
+      "cardinalidad": 2,
+      "origen": "derivada"
+    }
+  ]
+}

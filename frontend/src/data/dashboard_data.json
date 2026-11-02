@@ -1,0 +1,371 @@
+{
+  "kpis": {
+    "total_crashes": 209306,
+    "fatal_crashes": 351,
+    "injury_crashes": 54166,
+    "property_damage_only": 154789
+  },
+  "time_patterns": {
+    "hourly": {
+      "0": 4487,
+      "1": 3729,
+      "2": 3080,
+      "3": 2364,
+      "4": 2104,
+      "5": 2819,
+      "6": 4772,
+      "7": 9405,
+      "8": 11381,
+      "9": 9300,
+      "10": 8990,
+      "11": 10052,
+      "12": 11726,
+      "13": 11949,
+      "14": 13349,
+      "15": 15894,
+      "16": 16025,
+      "17": 16097,
+      "18": 13431,
+      "19": 9683,
+      "20": 8219,
+      "21": 7472,
+      "22": 7035,
+      "23": 5943
+    },
+    "day_of_week": {
+      "Domingo": 25246,
+      "Lunes": 27938,
+      "Martes": 30074,
+      "Miércoles": 30093,
+      "Jueves": 30787,
+      "Viernes": 34458,
+      "Sábado": 30710
+    },
+    "monthly": {
+      "Ene": 16606,
+      "Feb": 14621,
+      "Mar": 15265,
+      "Abr": 15096,
+      "May": 17432,
+      "Jun": 17851,
+      "Jul": 17834,
+      "Ago": 18350,
+      "Sep": 19018,
+      "Oct": 20089,
+      "Nov": 18328,
+      "Dic": 18816
+    },
+    "fatal_hourly": {
+      "0": 10,
+      "1": 23,
+      "2": 21,
+      "3": 13,
+      "4": 12,
+      "5": 14,
+      "6": 4,
+      "7": 7,
+      "8": 8,
+      "9": 7,
+      "10": 7,
+      "11": 17,
+      "12": 17,
+      "13": 10,
+      "14": 12,
+      "15": 17,
+      "16": 11,
+      "17": 20,
+      "18": 18,
+      "19": 18,
+      "20": 15,
+      "21": 27,
+      "22": 20,
+      "23": 23
+    }
+  },
+  "environmental": {
+    "weather": {
+      "Despejado": 164700,
+      "Lluvia": 21703,
+      "Nublado": 7533,
+      "Nieve": 6871,
+      "Desconocido": 6534,
+      "Otro": 627,
+      "Llovizna helada": 510,
+      "Niebla/Humo": 360
+    },
+    "lighting": {
+      "Día": 134109,
+      "Noche (Iluminada)": 53378,
+      "Noche (Oscura)": 7436,
+      "Atardecer": 6323,
+      "Desconocido": 4336
+    }
+  },
+  "causes": {
+    "No determinable": 58316,
+    "No ceder el paso": 42914,
+    "Distancia muy corta": 19084,
+    "Ignorar semáforo": 14591,
+    "Giro indebido": 12643,
+    "No reducir velocidad": 10676,
+    "Rebase indebido": 8302,
+    "Ignorar señal PARE": 6749,
+    "Uso indebido de carril": 6462,
+    "No aplica": 5241
+  },
+  "crash_types": {
+    "Girando": 64157,
+    "En ángulo": 52250,
+    "Por alcance": 42018,
+    "Roce misma dirección": 20116,
+    "Peatón": 8996,
+    "PEDALCYCLIST": 5337,
+    "Vehículo estacionado": 4893
+  },
+  "infrastructure": {
+    "trafficway": {
+      "No dividida": 77753,
+      "Cruce 4 vías": 49057,
+      "Dividida (sin cordón)": 34221,
+      "Mano única": 12341,
+      "Dividida (con barrera)": 10720,
+      "Intersección en T": 9233
+    }
+  },
+  "crossed_data": {
+    "cause_severity": [
+      {
+        "prim_contributory_cause": "Ignorar señal PARE",
+        "Con Heridos": 2363,
+        "Fatal": 11,
+        "Solo Daños": 4375
+      },
+      {
+        "prim_contributory_cause": "Ignorar semáforo",
+        "Con Heridos": 6316,
+        "Fatal": 71,
+        "Solo Daños": 8204
+      },
+      {
+        "prim_contributory_cause": "No reducir velocidad",
+        "Con Heridos": 3421,
+        "Fatal": 27,
+        "Solo Daños": 7228
+      },
+      {
+        "prim_contributory_cause": "No ceder el paso",
+        "Con Heridos": 14718,
+        "Fatal": 66,
+        "Solo Daños": 28130
+      },
+      {
+        "prim_contributory_cause": "Distancia muy corta",
+        "Con Heridos": 2750,
+        "Fatal": 1,
+        "Solo Daños": 16333
+      },
+      {
+        "prim_contributory_cause": "Rebase indebido",
+        "Con Heridos": 886,
+        "Fatal": 8,
+        "Solo Daños": 7408
+      },
+      {
+        "prim_contributory_cause": "Giro indebido",
+        "Con Heridos": 2261,
+        "Fatal": 6,
+        "Solo Daños": 10376
+      },
+      {
+        "prim_contributory_cause": "No determinable",
+        "Con Heridos": 13025,
+        "Fatal": 86,
+        "Solo Daños": 45205
+      }
+    ],
+    "light_hour": [
+      {
+        "crash_hour": 0,
+        "Día": 38,
+        "Noche (Iluminada)": 3973,
+        "Noche (Oscura)": 335
+      },
+      {
+        "crash_hour": 1,
+        "Día": 94,
+        "Noche (Iluminada)": 3238,
+        "Noche (Oscura)": 290
+      },
+      {
+        "crash_hour": 2,
+        "Día": 63,
+        "Noche (Iluminada)": 2682,
+        "Noche (Oscura)": 239
+      },
+      {
+        "crash_hour": 3,
+        "Día": 47,
+        "Noche (Iluminada)": 2046,
+        "Noche (Oscura)": 180
+      },
+      {
+        "crash_hour": 4,
+        "Día": 103,
+        "Noche (Iluminada)": 1584,
+        "Noche (Oscura)": 179
+      },
+      {
+        "crash_hour": 5,
+        "Día": 628,
+        "Noche (Iluminada)": 1295,
+        "Noche (Oscura)": 174
+      },
+      {
+        "crash_hour": 6,
+        "Día": 2847,
+        "Noche (Iluminada)": 700,
+        "Noche (Oscura)": 124
+      },
+      {
+        "crash_hour": 7,
+        "Día": 8774,
+        "Noche (Iluminada)": 105,
+        "Noche (Oscura)": 28
+      },
+      {
+        "crash_hour": 8,
+        "Día": 11062,
+        "Noche (Iluminada)": 74,
+        "Noche (Oscura)": 20
+      },
+      {
+        "crash_hour": 9,
+        "Día": 9021,
+        "Noche (Iluminada)": 86,
+        "Noche (Oscura)": 26
+      },
+      {
+        "crash_hour": 10,
+        "Día": 8706,
+        "Noche (Iluminada)": 93,
+        "Noche (Oscura)": 38
+      },
+      {
+        "crash_hour": 11,
+        "Día": 9719,
+        "Noche (Iluminada)": 121,
+        "Noche (Oscura)": 26
+      },
+      {
+        "crash_hour": 12,
+        "Día": 11372,
+        "Noche (Iluminada)": 72,
+        "Noche (Oscura)": 35
+      },
+      {
+        "crash_hour": 13,
+        "Día": 11602,
+        "Noche (Iluminada)": 34,
+        "Noche (Oscura)": 12
+      },
+      {
+        "crash_hour": 14,
+        "Día": 12841,
+        "Noche (Iluminada)": 62,
+        "Noche (Oscura)": 15
+      },
+      {
+        "crash_hour": 15,
+        "Día": 14886,
+        "Noche (Iluminada)": 160,
+        "Noche (Oscura)": 41
+      },
+      {
+        "crash_hour": 16,
+        "Día": 13017,
+        "Noche (Iluminada)": 1147,
+        "Noche (Oscura)": 248
+      },
+      {
+        "crash_hour": 17,
+        "Día": 9965,
+        "Noche (Iluminada)": 3522,
+        "Noche (Oscura)": 707
+      },
+      {
+        "crash_hour": 18,
+        "Día": 6220,
+        "Noche (Iluminada)": 4365,
+        "Noche (Oscura)": 956
+      },
+      {
+        "crash_hour": 19,
+        "Día": 2417,
+        "Noche (Iluminada)": 4791,
+        "Noche (Oscura)": 886
+      },
+      {
+        "crash_hour": 20,
+        "Día": 411,
+        "Noche (Iluminada)": 5921,
+        "Noche (Oscura)": 966
+      },
+      {
+        "crash_hour": 21,
+        "Día": 132,
+        "Noche (Iluminada)": 6056,
+        "Noche (Oscura)": 840
+      },
+      {
+        "crash_hour": 22,
+        "Día": 77,
+        "Noche (Iluminada)": 6059,
+        "Noche (Oscura)": 573
+      },
+      {
+        "crash_hour": 23,
+        "Día": 67,
+        "Noche (Iluminada)": 5192,
+        "Noche (Oscura)": 498
+      }
+    ],
+    "via_severity": [
+      {
+        "trafficway_type": "Dividida (sin cordón)",
+        "Con Heridos": 8356,
+        "Fatal": 68,
+        "Solo Daños": 25797
+      },
+      {
+        "trafficway_type": "Dividida (con barrera)",
+        "Con Heridos": 2887,
+        "Fatal": 25,
+        "Solo Daños": 7808
+      },
+      {
+        "trafficway_type": "Cruce 4 vías",
+        "Con Heridos": 15740,
+        "Fatal": 91,
+        "Solo Daños": 33226
+      },
+      {
+        "trafficway_type": "No dividida",
+        "Con Heridos": 18056,
+        "Fatal": 105,
+        "Solo Daños": 59592
+      },
+      {
+        "trafficway_type": "Mano única",
+        "Con Heridos": 2388,
+        "Fatal": 18,
+        "Solo Daños": 9935
+      },
+      {
+        "trafficway_type": "Intersección en T",
+        "Con Heridos": 2668,
+        "Fatal": 15,
+        "Solo Daños": 6550
+      }
+    ]
+  }
+}

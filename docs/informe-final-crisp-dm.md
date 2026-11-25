@@ -276,6 +276,12 @@ Basado en la evidencia contrastada, se formulan tres intervenciones concretas, m
 2. **Integración de Aforos de Tránsito (Exposición al Riesgo):** Incorporar sensores de conteo vehicular o estimaciones de Aforo Medio Diario Anual (TMDA). Una avenida con 100 choques puede ser estadísticamente más segura que una calle secundaria con 10 si por la primera transitan 50 veces más vehículos.
 3. **Estandarización de Tipificación Policial:** Capacitar a los agentes viales para reducir el porcentaje de causas rotuladas como `UNABLE TO DETERMINE`, introduciendo cuestionarios de selección múltiple estandarizados en el labrado de actas.
 
+### 5.3. Escalabilidad y Procesamiento Distribuido (Arquitectura Big Data a Futuro)
+El volumen actual de Costa Serena (209.275 registros, ~51 MB) se procesa de forma óptima en memoria local mediante Python/Pandas y Orange. No obstante, si el proyecto se escala a nivel provincial o nacional incorporando telemetría de vehículos conectados, sensores IoT y cámaras de tránsito en tiempo real:
+* **Almacenamiento y Procesamiento por Lotes (Batch ETL):** Se recomienda la adopción de **Apache Hadoop (HDFS)** o **Snowflake** como Data Lakehouse en la nube para consolidar el histórico masivo de actas sin saturar la infraestructura local.
+* **Procesamiento Distribuido en Memoria y Machine Learning a Gran Escala:** Implementar **Apache Spark (PySpark / Spark MLlib)** para acelerar el reentrenamiento de modelos sobre millones de registros, reduciendo la latencia de cómputo frente a arquitecturas basadas en disco.
+* **Procesamiento de Eventos en Tiempo Real (Streaming):** Para la detección temprana de anomalías viales o alertas automáticas de congestión en tiempo real, se proyecta el uso de **Apache Flink** debido a su capacidad de procesar flujos evento por evento con latencias de submilisegundos.
+
 ---
 
 # PARTE III: GUION PARA LA PRESENTACIÓN EJECUTIVA (10 MINUTOS)

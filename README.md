@@ -25,7 +25,7 @@ Este proyecto transforma un registro histórico de **209.306 hechos viales (2013
 | **Entregable 1 — Dataset preparado y documentado** | **COMPLETO** | Limpieza de 209.306 filas, 0 celdas nulas, descarte de 31 duplicados exactos y derivación de 10 columnas normalizadas. Trazabilidad con hash SHA-256. | [`data/clean/traffic_accidents_clean.csv`](data/clean/traffic_accidents_clean.csv)<br>[`data/clean/quality_report.json`](data/clean/quality_report.json)<br>[`docs/data-understanding-report.md`](docs/data-understanding-report.md)<br>[`docs/diccionario-de-datos.md`](docs/diccionario-de-datos.md) |
 | **Entregable 2 — Workflow reproducible en Orange** | **COMPLETO** | Flujo `.ows` sin rutas absolutas de máquina (`${basedir}`), con 5 etapas: Importación → Limpieza → Exploración → 7 Cruces en tablas pivote → Modelado (Árbol, Random Forest, Regresión Logística y k-Means, 5-fold CV). | [`siniestralidad_vial.ows`](siniestralidad_vial.ows)<br>[`docs/workflow-orange.md`](docs/workflow-orange.md) |
 | **Entregable 2 (Web) — Dashboard Interactivo** | **COMPLETO** | Tablero web en Next.js 16 + React 19 + Recharts estructurado en las **5 vistas requeridas** (*Resumen*, *Cuándo*, *Condiciones*, *Por Qué*, *Severidad*), **Heatmap táctil 7×24** y diseño vertical **Mobile-First 9:16** con **Bottom Navbar fijo**. Desplegado en Vercel. | [`frontend/src/app/page.tsx`](frontend/src/app/page.tsx)<br>[`backend/build_dashboard_data.py`](backend/build_dashboard_data.py)<br>[URL en Vercel](https://observatorio-vial-grupo1.vercel.app) |
-| **Entregable 3 — Informe de Insights y Presentación** | **PENDIENTE** | Redacción del informe ejecutivo breve (3-4 págs) con hallazgos, patrones y 3 intervenciones concretas, más la estructura de presentación de 10 minutos para el cliente. | *Issue #9 abierta* |
+| **Entregable 3 — Informe de Insights y Presentación** | **COMPLETO** | Informe final estructurado bajo metodología CRISP-DM (Plan de Proyecto, 5 secciones requeridas: recolección, preparación, teoría de modelos, evaluación y sugerencias futuras) y guion de presentación de 10 min ante el Concejo Deliberante. | [`docs/informe-final-crisp-dm.md`](docs/informe-final-crisp-dm.md) |
 
 ---
 
@@ -70,15 +70,17 @@ Este proyecto transforma un registro histórico de **209.306 hechos viales (2013
 - [x] **Pipeline de datos del Dashboard:** Script [`backend/build_dashboard_data.py`](backend/build_dashboard_data.py) con 3 tests unitarios adicionales (totalizando 15/15 pruebas unitarias).
 - [x] **Despliegue Continuo (CI/CD):** Prerenderizado estático (SSG) publicado en [observatorio-vial-grupo1.vercel.app](https://observatorio-vial-grupo1.vercel.app).
 
-### Entregable 3: Informe y Presentación al Cliente (Pendiente · Issue #9)
-- [ ] **Informe Ejecutivo de Insights:**
-  - [ ] Resumen de hallazgos cuantitativos y respuesta a las preguntas clave del cliente.
-  - [ ] Identificación de patrones temporales críticos y segmentos de calzada vulnerables.
-  - [ ] Formulación de al menos tres intervenciones concretas, priorizadas y defendibles ante el Concejo Deliberante.
-  - [ ] Análisis de limitaciones del dato (carga policial, ausencia de coordenadas GPS, correlación vs causalidad).
-- [ ] **Presentación al Cliente (10 Minutos):**
-  - [ ] Estructura de diapositivas / guion para pitch ejecutivo orientado a la toma de decisiones.
-  - [ ] Respuestas a: *¿Cuál es el problema?*, *¿Qué encontramos?*, *¿Qué factores aparecen asociados?*, *¿Dónde priorizar?* y *¿Qué análisis adicional se recomienda?*.
+### Entregable 3: Informe y Presentación al Cliente (Cerrado · Issue #9)
+- [x] **Informe Final CRISP-DM:**
+  - [x] Plan de proyecto con objetivos de negocio, objetivos técnicos, cronograma y contingencias.
+  - [x] Resumen de hallazgos cuantitativos y respuesta a las preguntas clave del cliente.
+  - [x] Identificación de patrones temporales críticos y segmentos de calzada vulnerables.
+  - [x] Formulación de tres intervenciones concretas, priorizadas y defendibles ante el Concejo Deliberante.
+  - [x] Justificación teórica y práctica de modelos supervisados (Tree, RF, Regresión Logística) y no supervisados ($k$-Means).
+  - [x] Análisis de limitaciones del dato (carga policial, ausencia de coordenadas GPS, correlación vs causalidad) y plan de monitoreo.
+- [x] **Presentación al Cliente (10 Minutos):**
+  - [x] Estructura de diapositivas / guion para pitch ejecutivo orientado a la toma de decisiones.
+  - [x] Respuestas a: *¿Cuál es el problema?*, *¿Qué encontramos?*, *¿Qué factores aparecen asociados?*, *¿Dónde priorizar?* y *¿Qué análisis adicional se recomienda?*.
 
 ---
 
@@ -136,6 +138,7 @@ npm run dev
 ├── docs/
 │   ├── data-understanding-report.md   # Diagnóstico de 10 puntos de entendimiento
 │   ├── diccionario-de-datos.md        # Definición de variables y reglas aplicadas
+│   ├── informe-final-crisp-dm.md      # Informe final y Plan de Proyecto CRISP-DM
 │   └── workflow-orange.md             # Guía paso a paso del flujo de Orange
 ├── frontend/
 │   ├── src/app/page.tsx               # Aplicación interactiva Next.js (5 vistas)

@@ -68,19 +68,19 @@ El análisis descriptivo sobre el universo de registros evidencia los siguientes
 
 ```
 +-------------------------------------------------------------------------------+
-| TOTAL SINIESTROS : 209.275      | PROMEDIO VEHÍCULOS / HECHO : 2,02 unidades  |
-| TOTAL LESIONADOS : 80.105 pers. | HERIDOS INCAPACITANTES     : 7.975 pers.    |
-| TASA DE HERIDOS  : 25,88 %      | TOTAL CASOS FATALES        : 351 (0,17 %)   |
+| TOTAL SINIESTROS : 209.275      | PROMEDIO VEHÍCULOS / HECHO : 2,06 unidades  |
+| TOTAL LESIONADOS : 80.091 pers. | HERIDOS INCAPACITANTES     : 7.974 pers.    |
+| TASA DE HERIDOS  : 25,88 %      | HECHOS FATALES : 351 (0,17 %) · 389 víctimas|
 +-------------------------------------------------------------------------------+
 ```
 
-1. **Magnitud del impacto humano:** Prácticamente **1 de cada 4 siniestros (25,88%) genera consecuencias corporales directas**. Si bien la tasa de fatalidad en el lugar del hecho es reducida (0,17%), se contabilizan **7.975 personas con lesiones incapacitantes permanentes**, lo que representa una carga altísima para el sistema de salud pública y seguros locales.
-2. **Dinámica multivehicular:** El promedio de unidades involucradas es de **2,02** ($Q_1=2, Q_3=2$), demostrando que la tipología preponderante es el choque entre dos vehículos particulares, mientras que siniestros de 3 o más unidades representan eventos atípicos en vías rápidas.
+1. **Magnitud del impacto humano:** Prácticamente **1 de cada 4 siniestros (25,88%) genera consecuencias corporales directas**. Si bien la tasa de fatalidad en el lugar del hecho es reducida (0,17%), se contabilizan **7.974 personas con lesiones incapacitantes**, lo que representa una carga altísima para el sistema de salud pública y seguros locales.
+2. **Dinámica multivehicular:** El promedio de unidades involucradas es de **2,06** ($Q_1=2, Q_3=2$), demostrando que la tipología preponderante es el choque entre dos vehículos particulares. Los siniestros de 3 o más unidades son poco frecuentes (7 %), pero mucho más graves: el 43,0 % de los hechos con 3 vehículos y el 56,5 % de los de 4 o más dejan lesionados, contra el 24,6 % de los de 2 vehículos.
 3. **Distribución temporal (Patrón Cuándo):**
    * *Estacionalidad anual:* Se verifica un crecimiento progresivo desde 2013 con picos de siniestralidad sostenida previa a 2020 y posterior recuperación de la circulación habitual.
-   * *Ciclo semanal:* Los viernes concentran el mayor volumen global de hechos (**34.331 casos**), seguidos por sábados y lunes.
-   * *Ciclo diario:* La curva horaria muestra un mínimo pronunciado entre las 03:00 y las 05:00 hs, comenzando a subir con la apertura de actividades matutinas (07:00 a 09:00 hs) y alcanzando una meseta máxima sostenida entre las **14:00 y las 18:00 hs** (con pico a las 16:00 hs, superando los 16.000 hechos).
-   * *La disociación del riesgo fatal:* Mientras que el **volumen** de siniestros domina la tarde laboral, la **proporción de letalidad** aumenta sustancialmente durante las madrugadas de sábados y domingos (entre las 23:00 y las 04:00 hs), donde la combinación de menor densidad de tránsito, alcohol y velocidad excesiva incrementa la gravedad relativa.
+   * *Ciclo semanal:* Los viernes concentran el mayor volumen global de hechos (**34.453 casos**), seguidos por jueves (30.784) y sábados (30.706). Domingo y lunes son los días con menos siniestros.
+   * *Ciclo diario:* La curva horaria muestra un mínimo pronunciado entre las 03:00 y las 05:00 hs, comenzando a subir con la apertura de actividades matutinas (07:00 a 09:00 hs) y alcanzando una meseta máxima sostenida entre las **14:00 y las 18:00 hs**, que concentra el **35,7 %** de los siniestros en el 21 % de las horas del día (pico a las 17:00 hs, con 16.095 hechos).
+   * *La disociación del riesgo fatal:* Mientras que el **volumen** de siniestros domina la tarde, la **letalidad** se concentra de madrugada: la franja de 23:00 a 04:00 hs reúne solo el 10,4 % de los siniestros pero el **29,1 % de los hechos fatales** (4,7 fatales cada 1.000 siniestros, casi tres veces el promedio de 1,7). En las madrugadas de sábado y domingo ocurre el 5,3 % de los siniestros y el 12,5 % de los fatales. El dataset no permite atribuir esta diferencia a una causa: el alcohol figura como causa primaria en apenas 993 actas, por lo que su peso real probablemente esté subregistrado.
 
 ---
 
@@ -97,14 +97,14 @@ El análisis descriptivo sobre el universo de registros evidencia los siguientes
 * **Solución (Reglas R9, R10, R11):** No se descartaron estas filas (lo que hubiera destruido el 30% del histórico). En su lugar, se transparentaron en los diccionarios y se agruparon en variables derivadas normalizadas (`clima_grupo`, `iluminacion_grupo`, `calzada_grupo`), evitando distorsiones por categorías residuales de uno o dos casos.
 
 #### C. Inconsistencia Administrativa de `crash_type`
-* **Problema:** En el esquema original, la columna `crash_type` contiene el valor `"INJURY AND / OR TOW DUE TO CRASH"` en 76.549 casos. Al auditar minuciosamente las lesiones, se constató que **37.418 de esos casos no tenían ningún herido ni fallecido**, sino únicamente traslado del vehículo por grúa. Utilizar `crash_type` como variable objetivo de severidad distorsionaba la gravedad real.
+* **Problema:** En el dataset depurado, la columna `crash_type` contiene el valor `"INJURY AND / OR TOW DUE TO CRASH"` en 91.919 casos. Al auditar minuciosamente las lesiones, se constató que **37.416 de esos casos (41 %) no tenían ningún herido ni fallecido**, sino únicamente traslado del vehículo por grúa. Utilizar `crash_type` como variable objetivo de severidad distorsionaba la gravedad real.
 * **Solución (Regla R7):** Se derivó la variable **`severidad`** basada estrictamente en la integridad física de las personas:
   $$\text{severidad} = \begin{cases} \text{Fatal} & \text{si } \text{injuries\_fatal} > 0 \\ \text{Con Heridos} & \text{si } \text{injuries\_total} > 0 \land \text{injuries\_fatal} = 0 \\ \text{Solo Daños} & \text{en cualquier otro caso} \end{cases}$$
 
 #### D. Verificación Aritmética de Lesiones
 Se auditó la consistencia interna de las columnas de víctimas. Se comprobó con 100% de coincidencia (0 discrepancias en 209.275 filas) que:
 $$\text{injuries\_total} = \text{injuries\_fatal} + \text{injuries\_incapacitating} + \text{injuries\_non\_incapacitating} + \text{injuries\_reported\_not\_evident}$$
-Asimismo, se constató que `injuries_no_indication` (469.683 personas ilesas) representa individuos sin afectación física, por lo que debe quedar excluida de la métrica de lesionados.
+Asimismo, se constató que `injuries_no_indication` (469.617 personas ilesas en el dataset depurado) representa individuos sin afectación física, por lo que debe quedar excluida de la métrica de lesionados.
 
 ### 2.2. Resumen de las 12 Reglas de Transformación Implementadas
 
@@ -204,7 +204,7 @@ Para garantizar robustez metodológica y permitir que el flujo en Orange sea ág
 
 #### Interpretación Crítica de las Métricas
 1. **La trampa de la Exactitud Global (CA $\approx$ 74%):** Una lectura ingenua concluiría que los modelos tienen un 74% de acierto. En realidad, debido a que el 73,95% de los siniestros son de *Solo Daños*, un modelo nulo que prediga siempre daño material obtendría exactamente ese valor.
-2. **Desafío en la clase minoritaria (*Fatal*):** Al representar solo el 0,17% del total (apenas 35 casos en la muestra de 20.000), el $Recall$ sobre la clase fatal es prácticamente nulo en modelos estándar sin remuestreo extremo (SMOTE). Esto confirma la regla de oro exigida por la cátedra: **el modelo predictivo debe utilizarse como una herramienta analítica de exploración y ponderación de variables de riesgo, nunca como un automatismo causal cerrado.**
+2. **Desafío en la clase minoritaria (*Fatal*):** Al representar solo el 0,17% del total (unos 34 casos en la muestra de 20.000), el $Recall$ sobre la clase fatal es prácticamente nulo en modelos estándar sin remuestreo extremo (SMOTE). Esto confirma la regla de oro exigida por la cátedra: **el modelo predictivo debe utilizarse como una herramienta analítica de exploración y ponderación de variables de riesgo, nunca como un automatismo causal cerrado.**
 3. **Poder explicativo de los atributos:** Los factores con mayor ganancia de información en los árboles son:
    * `first_crash_type` (los impactos con peatones, ciclistas y choques en ángulo muestran probabilidad desproporcionada de lesiones).
    * `trafficway_type` e `interseccion` (los tramos no divididos de 4 carriles multiplican los puntos de conflicto).
@@ -244,9 +244,9 @@ Basado en la evidencia contrastada, se formulan tres intervenciones concretas, m
 +----v--------------------+     +--------v----------------+     +------------v------------+
 | 1. INFRAESTRUCTURA      |     | 2. FISCALIZACIÓN        |     | 3. CONCIENTIZACIÓN      |
 | Cruces Críticos         |     | Operativos Móviles      |     | Campaña Prioridad Paso  |
-| - Tiempos giro protegido|     | - Ventana 15 a 21 hs    |     | - 42.000+ casos en actas|
-| - Reductores velocidad  |     | - Viernes a Domingos    |     | - Foco en rotondas y    |
-| - Iluminación LED focal |     | - Control nocturno vel. |     |   distancia de frenado  |
+| - Tiempos giro protegido|     | - Tarde: 14 a 18 hs     |     | - 42.000+ casos en actas|
+| - Reductores velocidad  |     | - Madrugada: 23 a 4 hs  |     | - Foco en rotondas y    |
+| - Iluminación LED focal |     | - Alcoholemia y veloc.  |     |   distancia de frenado  |
 +-------------------------+     +-------------------------+     +-------------------------+
 ```
 
@@ -254,8 +254,8 @@ Basado en la evidencia contrastada, se formulan tres intervenciones concretas, m
    * *Evidencia:* Las intersecciones en calzadas no divididas representan el mayor foco de colisiones con personas lesionadas.
    * *Acción:* Modificar la programación semafórica para incorporar fases de **giro protegido exclusivo a la izquierda**, instalar reductores trapezoidales de velocidad 30 metros antes del cruce y reforzar la luminaria LED cenital en las esquinas críticas.
 2. **Intervención 2 (Fiscalización Horaria Inteligente):**
-   * *Evidencia:* El Heatmap 7×24 demuestra que el 40% de los siniestros y los picos de letalidad se concentran entre las 15:00 y las 22:00 hs de viernes a domingos.
-   * *Acción:* Reestructurar los cuadrantes de la Policía Municipal de Tránsito para abandonar el patrullaje administrativo diurno lineal y concentrar postas de control vehicular y alcoholemia en esa ventana horaria específica.
+   * *Evidencia:* El volumen y la letalidad no coinciden en el horario. La franja de **14:00 a 18:00 hs** concentra el **35,7 %** de los siniestros (el heatmap 7×24 muestra sus valores máximos de lunes a viernes en esa franja), mientras que la franja de **23:00 a 04:00 hs** reúne el **29,1 % de los hechos fatales** con solo el 10,4 % de los siniestros.
+   * *Acción:* Reestructurar los cuadrantes de la Policía Municipal de Tránsito en dos ventanas: operativos de ordenamiento y control de tránsito por la tarde en días hábiles, y postas de control de velocidad y alcoholemia de madrugada, con refuerzo los fines de semana.
 3. **Intervención 3 (Campaña de Educación y Prioridad de Paso):**
    * *Evidencia:* La causa número 1 tipificada con 42.909 casos es *"Failing to yield right-of-way"* (no respetar la prioridad de paso de la derecha o en giros), seguida por *"Following too closely"* (19.074 casos).
    * *Acción:* Lanzar una campaña de comunicación institucional intensiva en medios locales y licencias de conducir centrada en la regla de prioridad en rotondas y cruces no semaforizados.
@@ -291,7 +291,7 @@ Estructura diseñada para la defensa ante la Ing. Marina Solá y el Concejo Deli
 | Diapositiva / Minuto | Título y Enfoque | Mensaje Fuerza a Transmitir |
 | :---: | :--- | :--- |
 | **Minuto 0–2** | **1. ¿Cuál es el problema?** | "Costa Serena dejó de gestionar la seguridad vial por intuición o reclamos vecinales. Analizamos 209.275 hechos reales para justificar técnicamente el presupuesto de prevención." |
-| **Minuto 2–4** | **2. ¿Qué encontramos?** | "1 de cada 4 siniestros deja víctimas corporales (80.105 lesionados y casi 8.000 heridos incapacitantes). El 74% de los choques son solo daños materiales, pero el costo de salud pública está concentrado." |
-| **Minuto 4–6** | **3. ¿Qué factores se asocian?** | "Desmitificamos que los accidentes graves ocurren por lluvia o defectos del asfalto: el 78% ocurren en asfalto seco y buen clima. El factor crítico es el comportamiento en cruces (no ceder el paso) y la ventana crítica de viernes a domingo por la tarde/noche." |
-| **Minuto 6–8** | **4. ¿Qué debe priorizar el Concejo?** | "Presentamos 3 intervenciones concretas: 1) Semaforización con giro protegido en cruces de 4 vías; 2) Despliegue policial enfocado en la ventana horaria crítica del fin de semana; 3) Campaña en prioridad de paso." |
+| **Minuto 2–4** | **2. ¿Qué encontramos?** | "1 de cada 4 siniestros deja víctimas corporales (80.091 lesionados y casi 8.000 heridos incapacitantes). El 74% de los choques son solo daños materiales, pero el costo de salud pública está concentrado." |
+| **Minuto 4–6** | **3. ¿Qué factores se asocian?** | "Desmitificamos que los accidentes graves ocurren por lluvia: el 74,5 % ocurre con calzada seca y el 78,7 % con clima despejado, y con lluvia la proporción de hechos con heridos apenas cambia (27,0 % contra 26,0 % promedio). Lo que sí se asocia a lesiones es la conducta en cruces (desobedecer el semáforo: 43,8 %) y el atropello a peatones (89,5 %). En el tiempo, el volumen se concentra de 14 a 18 hs y los fatales, de 23 a 4 hs." |
+| **Minuto 6–8** | **4. ¿Qué debe priorizar el Concejo?** | "Presentamos 3 intervenciones concretas: 1) Semaforización con giro protegido en cruces de 4 vías; 2) Controles de tránsito por la tarde y de velocidad y alcoholemia de madrugada; 3) Campaña en prioridad de paso y protección del peatón." |
 | **Minuto 8–10** | **5. Próximos pasos y Tablero** | "El municipio cuenta desde hoy con un Observatorio Web interactivo mobile-first para consulta permanente de los concejales y un plan de monitoreo para evaluar el éxito en 12 meses." |
